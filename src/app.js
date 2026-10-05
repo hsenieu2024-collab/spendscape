@@ -217,7 +217,7 @@ function renderRecurring(list) {
       cell(r.cadence),
       cell(fmtMoney(r.amount), 'num'),
       cell(fmtMoney(r.annualCost), 'num'),
-      cell(r.active ? r.nextDate : '—'),
+      cell(r.active ? r.nextDate : '—', 'nowrap'),
       cell(status),
     );
     table.append(tr);
@@ -232,7 +232,7 @@ function renderAnomalies(list) {
   if (!list.length) return emptyRow(table, 'Nothing unusual. Every charge looks typical for its category.', 6);
   for (const a of list.slice(0, 10)) {
     const tr = document.createElement('tr');
-    tr.append(cell(a.date), cell(a.description, 'desc'), cell(pill(a.category)), cell(fmtMoney(-a.amount), 'num'), cell(fmtMoney(a.typical), 'num'), cell(`${a.multiple}×`, 'num'));
+    tr.append(cell(a.date, 'nowrap'), cell(a.description, 'desc'), cell(pill(a.category)), cell(fmtMoney(-a.amount), 'num'), cell(fmtMoney(a.typical), 'num'), cell(`${a.multiple}×`, 'num'));
     table.append(tr);
   }
 }
@@ -270,7 +270,7 @@ function renderTransactions() {
       state.shown = shown;
       renderTransactions();
     });
-    tr.append(cell(t.date), cell(t.description, 'desc'), cell(select), cell(fmtMoney(t.amount), `num ${t.amount > 0 ? 'pos' : ''}`));
+    tr.append(cell(t.date, 'nowrap'), cell(t.description, 'desc'), cell(select), cell(fmtMoney(t.amount), `num ${t.amount > 0 ? 'pos' : ''}`));
     tr.querySelector('.desc').title = t.description;
     table.append(tr);
   }
