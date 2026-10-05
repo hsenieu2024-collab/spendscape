@@ -162,6 +162,8 @@ h1 em { font-style: normal; color: var(--accent); }
 
 @media (max-width: 600px) {
   .topbar { padding: 10px 16px; }
+  .select span { display: none; }
+  .topbar-actions .btn { padding: 6px 10px; font-size: 14px; }
   .barlist li { grid-template-columns: 90px 1fr auto; }
   .table .desc { max-width: 160px; }
 }
