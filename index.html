@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spendscape</title>
+  <meta name="description" content="Privacy-first personal finance dashboard. Drop in a bank CSV — everything is analysed locally in your browser.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%235b6cf0'/><path d='M7 22l6-7 5 4 7-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><path d="M7 22l6-7 5 4 7-9"/></svg>
+      Spendscape
+    </a>
+    <div class="topbar-actions" hidden id="dashActions">
+      <label class="select">Currency
+        <select id="currency">
+          <option>EUR</option><option>USD</option><option>GBP</option><option>CHF</option><option>JPY</option>
+        </select>
+      </label>
+      <button class="btn ghost" id="exportBtn">Export CSV</button>
+      <button class="btn ghost" id="resetBtn">New file</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="landing" class="landing">
+      <div class="hero">
+        <p class="eyebrow">🔒 Runs 100% in your browser. Nothing is uploaded.</p>
+        <h1>See where your money <em>actually</em> goes.</h1>
+        <p class="lede">Drop in a CSV export from your bank. Spendscape categorises every transaction, finds the subscriptions you forgot about, and flags charges that don't look like you.</p>
+      </div>
+      <label class="dropzone" id="dropzone" tabindex="0">
+        <input type="file" id="fileInput" accept=".csv,text/csv" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+        <strong>Drop your bank CSV here</strong>
+        <span>or click to choose a file · works with most bank exports (comma or semicolon, EU or US formats)</span>
+      </label>
+      <div class="or"><span>or</span></div>
+      <button class="btn primary" id="sampleBtn">Explore with sample data</button>
+      <p class="error" id="error" role="alert" hidden></p>
+      <ul class="features">
+        <li><strong>Auto-categorisation</strong><span>Keyword rules for 100+ common merchants, plus your own corrections, which it remembers.</span></li>
+        <li><strong>Subscription radar</strong><span>Detects weekly, monthly, quarterly and yearly charges, and notices price rises.</span></li>
+        <li><strong>Anomaly alerts</strong><span>Robust statistics (median absolute deviation) surface unusually large charges per category.</span></li>
+      </ul>
+    </section>
+
+    <section id="dashboard" class="dashboard" hidden>
+      <div class="period" id="period"></div>
+      <div class="kpis" id="kpis"></div>
+
+      <div class="grid two">
+        <article class="card wide">
+          <header><h2>Monthly spending</h2><div class="legend" id="legend"></div></header>
+          <div id="monthlyChart"></div>
+        </article>
+        <article class="card">
+          <header><h2>By category</h2></header>
+          <div id="donutChart" class="center"></div>
+        </article>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <header><h2>Insights</h2></header>
+          <ul class="insights" id="insights"></ul>
+        </article>
+        <article class="card">
+          <header><h2>Top merchants</h2></header>
+          <div id="merchants"></div>
+        </article>
+      </div>
+
+      <article class="card">
+        <header><h2>Recurring charges</h2><span class="muted" id="recurringTotal"></span></header>
+        <div class="table-wrap"><table class="table" id="recurring"></table></div>
+      </article>
+
+      <article class="card">
+        <header><h2>Daily rhythm</h2><span class="muted">Darker = more spent that day</span></header>
+        <div id="heatmap" class="scroll-x"></div>
+      </article>
+
+      <article class="card">
+        <header><h2>Unusual charges</h2></header>
+        <div class="table-wrap"><table class="table" id="anomalies"></table></div>
+      </article>
+
+      <article class="card">
+        <header>
+          <h2>Transactions</h2>
+          <div class="filters">
+            <input type="search" id="search" placeholder="Search…" aria-label="Search transactions">
+            <select id="catFilter" aria-label="Filter by category"><option value="">All categories</option></select>
+          </div>
+        </header>
+        <p class="muted small">Tip: change a category and Spendscape will remember it for that merchant.</p>
+        <div class="table-wrap"><table class="table" id="txTable"></table></div>
+        <button class="btn ghost" id="moreBtn" hidden>Show more</button>
+      </article>
+    </section>
+  </main>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+
+  <footer class="footer">
+    Built with vanilla JS. No frameworks, no tracking, no servers. ·
+    <a href="https://github.com/hsenieu2024-collab/spendscape">Source on GitHub</a>
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

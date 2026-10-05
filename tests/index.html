@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spendscape tests</title>
+  <style>
+    body { font: 14px/1.5 ui-monospace, Menlo, monospace; margin: 24px; background: #fff; color: #111; }
+    @media (prefers-color-scheme: dark) { body { background: #111; color: #eee; } }
+    pre { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Spendscape tests</h1>
+  <pre id="out"></pre>
+  <script type="module">
+    import { runTests } from './tests.js';
+    const out = document.getElementById('out');
+    const { failed } = await runTests(line => { out.textContent += line + '\n'; });
+    document.title = failed ? `✗ ${failed} failed` : '✓ all passed';
+  </script>
+</body>
+</html>

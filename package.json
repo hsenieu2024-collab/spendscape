@@ -1,0 +1,12 @@
+{
+  "name": "spendscape",
+  "version": "1.0.0",
+  "description": "Privacy-first personal finance dashboard that runs entirely in the browser.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node tests/run.mjs",
+    "start": "python3 -m http.server 8000"
+  },
+  "license": "MIT"
+}
